@@ -63,7 +63,6 @@ Let's say we have a function that receives lots of arguments and generates a nam
 
 ```javascript
 var name = function(firstName, lastName, middleName, prefix, suffix){
-    'use strict';
     var name = [];
     if(prefix){
         name.push(prefix);

@@ -18,14 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-(function(exports){
+(function(){
     'use strict';
 
-    exports.kwargs = function (func, defaults) {
+    Function.prototype.kwargs = function (defaults) {
 
         var removeComments = new RegExp('(\\/\\*[\\w\\\'\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
         var removeWhitespc = new RegExp('\\s+', 'gim');
         var matchSignature = new RegExp('function.*?\\((.*?)\\)', 'i');
+        var func = this;
 
         return function() {
             var args = Array.prototype.slice.call(arguments),
@@ -56,4 +57,4 @@
             return func.apply(this, args);
         };
     };
-})(this);
+})();

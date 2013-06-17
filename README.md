@@ -88,3 +88,23 @@ name('Max', 'Fightmaster', { prefix: 'Staff Sgt.' })
 name('Isaac', 'Newton', { prefix: 'Sir', suffix: 'PRS MP'});
 // -> Sir Isaac Newton PRS MP
 ```
+
+## Important Note
+If last argument passed is an object, code assumes it's a `kwargs` object, if your function accepts objects as arguments
+you should be careful about this, here is an example.
+
+```javascript
+// in both cases, `anObject` argument will be interpreted as `kwargs` object and be ignored
+myFunc(anObject);
+myFunc('val', anObject);
+```
+
+to avoid this problem you have two solutions
+
+```javascript
+myFunc(anObject, {}); // passing last argument as an empty object
+// or using the options method and passing your object in kwargs
+myFunc({
+  arg1: anObject
+});
+```

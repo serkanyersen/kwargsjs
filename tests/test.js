@@ -9,12 +9,12 @@
         }
     };
 
-    exports.assertText = function(value, check, name){
+    exports.assert = function(value, check, name){
         if(value != check){
             console.error('"%s" != "%s" Assertion Error on %s', value, check, name);
             fail++;
         }else{
-            console.log('passed: "%s".', name);
+            console.log('Passed: "%s".', name);
             success++;
         }
     };
@@ -26,13 +26,13 @@ var test1 = function(arg1, arg2, arg3){
     return arg1 + arg2 + arg3;
 }.kwargs();
 
-assertText(test1('a','b','c'), 'abc', 'Regular arguments');
-assertText(test1({
+assert(test1('a','b','c'), 'abc', 'Regular arguments');
+assert(test1({
     arg1: 'a',
     arg2: 'b',
     arg3: 'c'
 }), 'abc', 'Options method');
-assertText(test1('a', {
+assert(test1('a', {
     arg2: 'b',
     arg3: 'c'
 }), 'abc', 'Both regular and kwargs');
@@ -43,8 +43,8 @@ var greeting = function(name){
     return "Hello " + name;
 }.kwargs({ name: 'World' });
 
-assertText(greeting('Frank'), "Hello Frank", 'Defaults with argument');
-assertText(greeting(), "Hello World", 'Defaults without arguments');
+assert(greeting('Frank'), "Hello Frank", 'Defaults with argument');
+assert(greeting(), "Hello World", 'Defaults without arguments');
 
 /* complex example */
 var printname = function(firstName, lastName, middleName, prefix, suffix){
@@ -63,8 +63,8 @@ var printname = function(firstName, lastName, middleName, prefix, suffix){
     return name.join(' ');
 }.kwargs();
 
-assertText(printname('John', 'Doe', { suffix:'Ph.D.' }), "John Doe Ph.D.", "Complex example 1");
-assertText(printname('Max', 'Fightmaster', { prefix: 'Staff Sgt.' }), "Staff Sgt. Max Fightmaster", "Complex example 2");
-assertText(printname('Isaac', 'Newton', { prefix: 'Sir', suffix: 'PRS MP'}), "Sir Isaac Newton PRS MP", "Complex example 3");
+assert(printname('John', 'Doe', { suffix:'Ph.D.' }), "John Doe Ph.D.", "Complex example 1");
+assert(printname('Max', 'Fightmaster', { prefix: 'Staff Sgt.' }), "Staff Sgt. Max Fightmaster", "Complex example 2");
+assert(printname('Isaac', 'Newton', { prefix: 'Sir', suffix: 'PRS MP'}), "Sir Isaac Newton PRS MP", "Complex example 3");
 
 showComplete();

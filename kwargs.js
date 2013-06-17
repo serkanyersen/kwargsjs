@@ -23,37 +23,44 @@
 
     Function.prototype.kwargs = function (defaults) {
 
+        var func = this;
         var removeComments = new RegExp('(\\/\\*[\\w\\\'\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
         var removeWhitespc = new RegExp('\\s+', 'gim');
         var matchSignature = new RegExp('function.*?\\((.*?)\\)', 'i');
-        var func = this;
+        // get the argument names from function source
+        var names = func.toString()
+                        .replace(removeComments, '')
+                        .replace(removeWhitespc, '')
+                        .match(matchSignature)[1]
+                        .split(',');
+
+        // Check the existance of default, if not create an object
+        if(defaults !== Object(defaults)){
+            defaults = {};
+        }
 
         return function() {
             var args = Array.prototype.slice.call(arguments),
                 kwargs = args[args.length - 1],
                 name;
 
-            if(defaults !== Object(defaults)){
-                defaults = {};
-            }
-
+            // Check the existance of the kwargs
             if (kwargs === Object(kwargs)) {
                 args.pop();
-                var names = func.toString()
-                                .replace(removeComments, '')
-                                .replace(removeWhitespc, '')
-                                .match(matchSignature)[1]
-                                .split(',');
+            }else{
+                kwargs = {};
+            }
 
-                for (var i = 0; i < names.length; i++) {
-                    name = names[i];
-                    if (name in kwargs) {
-                        args[i] = kwargs[name];
-                    }else if(name in defaults && args[i] === undefined){
-                        args[i] = defaults[name];
-                    }
+            // Fill the arguments and apply them
+            for (var i = 0; i < names.length; i++) {
+                name = names[i];
+                if (name in kwargs) {
+                    args[i] = kwargs[name];
+                }else if(name in defaults && args[i] === undefined){
+                    args[i] = defaults[name];
                 }
             }
+
             return func.apply(this, args);
         };
     };

@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>kwargs.js by serkanyersen</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>kwargs.js</h1>
+        <p>Smart argument management for javascript</p>
+        <p class="view"><a href="https://github.com/serkanyersen/kwargsjs">View the Project on GitHub <small>serkanyersen/kwargsjs</small></a></p>
+        <ul>
+          <li><a href="https://github.com/serkanyersen/kwargsjs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/serkanyersen/kwargsjs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/serkanyersen/kwargsjs">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="keyword-arguments-for-javascript-similar-to-pythons-kwargs" class="anchor" href="#keyword-arguments-for-javascript-similar-to-pythons-kwargs"><span class="octicon octicon-link"></span></a>Keyword arguments for Javascript. Similar to python's kwargs</h1>
+
+<p>This little tool gives you the ability to use keyword arguments support for your functions. So you can either specify each argument as you wish or use the arguments regularly. In fact you can do both at the same time.</p>
+
+<p>Another feature is to have the ability to set default values for your function arguments without changing or adding any code to your function.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Just include the script on your site. That's it. When included it will add a new method called <code>kwargs</code> to Function prototype and you can use it like this:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">functionName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">){</span>
+    <span class="c1">// code</span>
+<span class="p">}.</span><span class="nx">kwargs</span><span class="p">([</span><span class="nx">defaults</span><span class="p">]);</span>
+</pre></div>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>Just write your function as you would normally, and don't worry about the arguments size. just call <code>.kwargs()</code> and rest will be handled.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">,</span> <span class="nx">arg3</span><span class="p">){</span>
+    <span class="c1">// Your code</span>
+<span class="p">}.</span><span class="nx">kwargs</span><span class="p">();</span>
+</pre></div>
+
+<p>Now, if you want you can pass all arguments in a single object and they all will be mapped to their correct places</p>
+
+<div class="highlight"><pre><span class="nx">test</span><span class="p">({</span>
+    <span class="nx">arg3</span><span class="o">:</span> <span class="s1">'val3'</span><span class="p">,</span>
+    <span class="nx">arg1</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+    <span class="nx">arg2</span><span class="o">:</span> <span class="s1">'val2'</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>You can also use your function like you would normally use</p>
+
+<div class="highlight"><pre><span class="nx">test</span><span class="p">(</span><span class="s1">'val1'</span><span class="p">,</span> <span class="s1">'val2'</span><span class="p">,</span> <span class="s1">'val3'</span><span class="p">);</span>
+</pre></div>
+
+<p>the best part is that you can do both</p>
+
+<div class="highlight"><pre><span class="nx">test</span><span class="p">(</span><span class="s1">'val1'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">arg3</span><span class="o">:</span> <span class="s1">'val3'</span><span class="p">,</span>
+    <span class="nx">arg1</span><span class="o">:</span> <span class="s1">'val1'</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>
+<a name="using-default-values-for-arguments" class="anchor" href="#using-default-values-for-arguments"><span class="octicon octicon-link"></span></a>Using Default values for arguments</h3>
+
+<p>Let's say we have this function that says Hello to a given name.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="k">return</span> <span class="s2">"Hello "</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">greeting</span><span class="p">(</span><span class="s1">'Frank'</span><span class="p">);</span> <span class="c1">// -&gt; Hello Frank</span>
+</pre></div>
+
+<p>If no name is given, we want it to return "Hello World", usually you would have to add conditions to your function and check for existence of <code>name</code> argument. kwargs automatically handles that for you.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="k">return</span> <span class="s2">"Hello "</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}.</span><span class="nx">kwargs</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="s1">'World'</span><span class="p">});</span> <span class="c1">// Set a default value for your argument and </span>
+                           <span class="c1">// it will be used when this argument is empty</span>
+<span class="c1">// Here are the results</span>
+<span class="nx">greeting</span><span class="p">(</span><span class="s1">'Frank'</span><span class="p">);</span> <span class="c1">// -&gt; Hello Frank</span>
+<span class="nx">greeting</span><span class="p">();</span> <span class="c1">// -&gt; Hello World</span>
+</pre></div>
+
+<h2>
+<a name="a-real-example" class="anchor" href="#a-real-example"><span class="octicon octicon-link"></span></a>A real example</h2>
+
+<p>Let's say we have a function that receives a lot of arguments and generates a name with prefixes and suffixes when provided.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">firstName</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">,</span> <span class="nx">middleName</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">prefix</span><span class="p">){</span>
+        <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">prefix</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">firstName</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">middleName</span><span class="p">){</span>
+        <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">middleName</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">lastName</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">suffix</span><span class="p">){</span>
+        <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">suffix</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">name</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">' '</span><span class="p">);</span>
+<span class="p">}.</span><span class="nx">kwargs</span><span class="p">();</span>
+</pre></div>
+
+<p>Now, when we want create a name with only a suffix, all we have to do is to provide the name and suffix. You can only pass required arguments without changing anything on your function code.</p>
+
+<div class="highlight"><pre><span class="nx">name</span><span class="p">(</span><span class="s1">'John'</span><span class="p">,</span> <span class="s1">'Doe'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">suffix</span><span class="o">:</span><span class="s1">'Ph.D.'</span> <span class="p">});</span>
+<span class="c1">// -&gt; John Doe Ph.D.</span>
+<span class="nx">name</span><span class="p">(</span><span class="s1">'Max'</span><span class="p">,</span> <span class="s1">'Fightmaster'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">prefix</span><span class="o">:</span> <span class="s1">'Staff Sgt.'</span> <span class="p">})</span>
+<span class="c1">// -&gt; Staff Sgt. Max Fightmaster</span>
+<span class="nx">name</span><span class="p">(</span><span class="s1">'Isaac'</span><span class="p">,</span> <span class="s1">'Newton'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">prefix</span><span class="o">:</span> <span class="s1">'Sir'</span><span class="p">,</span> <span class="nx">suffix</span><span class="o">:</span> <span class="s1">'PRS MP'</span><span class="p">});</span>
+<span class="c1">// -&gt; Sir Isaac Newton PRS MP</span>
+</pre></div>
+
+<h2>
+<a name="important-note" class="anchor" href="#important-note"><span class="octicon octicon-link"></span></a>Important Note</h2>
+
+<p>If last argument passed is an object, code assumes it's a <code>kwargs</code> object, if your function accepts objects as arguments
+you should be careful about this, here is an example.</p>
+
+<div class="highlight"><pre><span class="c1">// in both cases, `anObject` argument will be interpreted as `kwargs` object and be ignored</span>
+<span class="nx">myFunc</span><span class="p">(</span><span class="nx">anObject</span><span class="p">);</span>
+<span class="nx">myFunc</span><span class="p">(</span><span class="s1">'val'</span><span class="p">,</span> <span class="nx">anObject</span><span class="p">);</span>
+</pre></div>
+
+<p>to avoid this problem you have two solutions</p>
+
+<div class="highlight"><pre><span class="nx">myFunc</span><span class="p">(</span><span class="nx">anObject</span><span class="p">,</span> <span class="p">{});</span> <span class="c1">// passing last argument as an empty object</span>
+<span class="c1">// or using the options method and passing your object in kwargs</span>
+<span class="nx">myFunc</span><span class="p">({</span>
+  <span class="nx">arg1</span><span class="o">:</span> <span class="nx">anObject</span>
+<span class="p">});</span>
+</pre></div>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/serkanyersen">serkanyersen</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>

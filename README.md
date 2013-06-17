@@ -1,14 +1,20 @@
 # Keyword arguments for Javascript. Similar to python's kwargs
 
-This little tool gives you to ability to have keyword arguments support for your functions so you can either specify each argument without order or use it as it is, intact you can do both at the same time.
+This little tool gives you the ability to use keyword arguments support for your functions. So you can either specify each argument as you wish or use the arguments regularly. In fact you can do both at the same time.
 
 Another feature is to have the ability to set default values for your function arguments without changing or adding any code to your function.
-## Usage
-Just include the script on your site. That's it.
 
+## Usage
+Just include the script on your site. That's it. When included it will add a new method called `kwargs` to Function prototype and you can use it like this:
+
+```javascript
+var functionName = function(arg1, arg2){
+	// code
+}.kwargs([defaults]);
+```
 
 ## Examples
-You can have separate arguments in your function but it won't stop you to use single argument `options` method.
+Just write your function as you would normally, and don't worry about the arguments size. just call `.kwargs()` and rest will be handled.
 
 ```javascript
 var test = function(arg1, arg2, arg3){
@@ -16,7 +22,7 @@ var test = function(arg1, arg2, arg3){
 }.kwargs();
 ```
 
-and use it as single argument function
+Now, if you want you can pass all arguments in a single object and they all will be mapped to their correct places
 
 ```javascript
 test({
@@ -25,12 +31,14 @@ test({
 	arg2: 'val2'
 });
 ```
-you can also use it regularly
+
+You can also use your function like you would normally use
 
 ```javascript
 test('val1', 'val2', 'val3');
 ```
-or you can do both
+
+the best part is that you can do both
 
 ```javascript
 test('val1', {
@@ -38,7 +46,9 @@ test('val1', {
 	arg1: 'val1',
 });
 ```
-### Using Defaults
+
+### Using Default values for arguments
+
 Let's say we have this function that says Hello to a given name.
 
 ```javascript
@@ -47,19 +57,20 @@ var greeting = function(name){
 };
 greeting('Frank'); // -> Hello Frank
 ```
-If no name is given we want it to return "Hello World", usually you would have to add conditions to your function and check for existence of `name` argument, with `kwargs` you don't.
+If no name is given, we want it to return "Hello World", usually you would have to add conditions to your function and check for existence of `name` argument. kwargs automatically handles that for you.
 
 ```javascript
 var greeting = function(name){
 	return "Hello " + name;
-}.kwargs({name: 'World'});
-
+}.kwargs({name: 'World'}); // Set a default value for your argument and 
+                           // it will be used when this argument is empty
+// Here are the results
 greeting('Frank'); // -> Hello Frank
 greeting(); // -> Hello World
 ```
 
 ## A real example
-Let's say we have a function that receives lots of arguments and generates a name with prefixes and suffixes when provided.
+Let's say we have a function that receives a lot of arguments and generates a name with prefixes and suffixes when provided.
 
 ```javascript
 var name = function(firstName, lastName, middleName, prefix, suffix){
@@ -78,7 +89,7 @@ var name = function(firstName, lastName, middleName, prefix, suffix){
     return name.join(' ');
 }.kwargs();
 ```
-So now when we want create a name with only a suffix, all we have to do is to provide the name and suffix.
+Now, when we want create a name with only a suffix, all we have to do is to provide the name and suffix. You can only pass required arguments without changing anything on your function code.
 
 ```javascript
 name('John', 'Doe', { suffix:'Ph.D.' });

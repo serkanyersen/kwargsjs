@@ -7,6 +7,7 @@
         }else{
             console.log('%c %s tests completed, %s failed ', 'background:red;color:white;font-size:16px;font-weight:bold;', success, fail);
         }
+        return fail === 0;
     };
 
     exports.assert = function(value, check, name){
@@ -146,18 +147,19 @@ assert(testRegularKwargs('Arthur', {
     middlename: 'C.'
 }), "Arthur C. Clark", 'Regular test 4');
 
-showComplete();
+if(showComplete()){
+    /* Make a performance test */
+    var iteration = 100000;
+
+    console.log("%c Test normal version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
+    bench(function(arg1, arg2, arg3){
+        return arg1 + arg2 + arg3;
+    }, iteration, [1,2,3], this);
+
+    console.log("%c Test kwargs version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
+    bench(function(arg1, arg2, arg3){
+        return arg1 + arg2 + arg3;
+    }.kwargs(), iteration, [1,2, {arg3: 3}], this);
+}
 
 
-/* Make a performance test */
-var iteration = 100000;
-
-console.log("%c Test normal version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
-bench(function(arg1, arg2, arg3){
-    return arg1 + arg2 + arg3;
-}, iteration, [1,2,3], this);
-
-console.log("%c Test kwargs version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
-bench(function(arg1, arg2, arg3){
-    return arg1 + arg2 + arg3;
-}.kwargs(), iteration, [1,2, {arg3: 3}], this);

@@ -5,21 +5,21 @@ This little tool gives you the ability to use keyword arguments support for your
 Another feature is to have the ability to set default values for your function arguments without changing or adding any code to your function.
 
 ## Usage
-Just include the script on your site. That's it. When included it will add a new method called `kwargs` to Function prototype and you can use it like this:
+Just include the script on your site. That's it. When included it will provide new function called `kwargs` and you can use it like this:
 
 ```javascript
-var functionName = function(arg1, arg2){
+var functionName = kwargs(function(arg1, arg2){
 	// code
-}.kwargs([defaults]);
+}, [defaults]);
 ```
 
 ## Examples
-Just write your function as you would normally, and don't worry about the arguments size. just call `.kwargs()` and rest will be handled.
+Just write your function as you would normally, and don't worry about the arguments size. just wrap it with `kwargs()` and rest will be handled.
 
 ```javascript
-var test = function(arg1, arg2, arg3){
+var test = kwargs(function(arg1, arg2, arg3){
 	// Your code
-}.kwargs();
+});
 ```
 
 Now, if you want you can pass all arguments in a single object and they all will be mapped to their correct places
@@ -60,9 +60,9 @@ greeting('Frank'); // -> Hello Frank
 If no name is given, we want it to return "Hello World", usually you would have to add conditions to your function and check for existence of `name` argument. kwargs automatically handles that for you.
 
 ```javascript
-var greeting = function(name){
+var greeting = kwargs(function(name){
 	return "Hello " + name;
-}.kwargs({name: 'World'}); // Set a default value for your argument and 
+},{name: 'World'}); // Set a default value for your argument and 
                            // it will be used when this argument is empty
 // Here are the results
 greeting('Frank'); // -> Hello Frank
@@ -73,7 +73,7 @@ greeting(); // -> Hello World
 Let's say we have a function that receives a lot of arguments and generates a name with prefixes and suffixes when provided.
 
 ```javascript
-var name = function(firstName, lastName, middleName, prefix, suffix){
+var name = kwargs(function(firstName, lastName, middleName, prefix, suffix){
     var name = [];
     if(prefix){
         name.push(prefix);
@@ -87,7 +87,7 @@ var name = function(firstName, lastName, middleName, prefix, suffix){
         name.push(suffix);
     }
     return name.join(' ');
-}.kwargs();
+});
 ```
 Now, when we want create a name with only a suffix, all we have to do is to provide the name and suffix. You can only pass required arguments without changing anything on your function code.
 

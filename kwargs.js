@@ -18,15 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-(function(){
+(function(global){
     'use strict';
 
-    Function.prototype.kwargs = function (defaults) {
+    var kwargs = function (func, defaults) {
 
-        var func = this;
         var removeComments = new RegExp('(\\/\\*[\\w\\\'\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
         var removeWhitespc = new RegExp('\\s+', 'gim');
         var matchSignature = new RegExp('function.*?\\((.*?)\\)', 'i');
+
         // get the argument names from function source
         var names = func.toString()
                         .replace(removeComments, '')
@@ -64,4 +64,7 @@
             return func.apply(this, args);
         };
     };
-})();
+
+    global.kwargs = kwargs;
+
+})(this);

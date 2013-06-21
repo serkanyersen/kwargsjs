@@ -70,9 +70,9 @@
 
 
 /* regular arguments */
-var test1 = function(arg1, arg2, arg3){
+var test1 = kwargs(function(arg1, arg2, arg3){
     return arg1 + arg2 + arg3;
-}.kwargs();
+});
 
 assert(test1('a','b','c'), 'abc', 'Regular arguments');
 assert(test1({
@@ -87,15 +87,15 @@ assert(test1('a', {
 
 
 /* Defaults without kwargs */
-var greeting = function(name){
+var greeting = kwargs(function(name){
     return "Hello " + name;
-}.kwargs({ name: 'World' });
+},{ name: 'World' });
 
 assert(greeting('Frank'), "Hello Frank", 'Defaults with argument');
 assert(greeting(), "Hello World", 'Defaults without arguments');
 
 /* complex example */
-var printname = function(firstName, lastName, middleName, prefix, suffix){
+var printname = kwargs(function(firstName, lastName, middleName, prefix, suffix){
     var name = [];
     if(prefix){
         name.push(prefix);
@@ -109,13 +109,13 @@ var printname = function(firstName, lastName, middleName, prefix, suffix){
         name.push(suffix);
     }
     return name.join(' ');
-}.kwargs();
+});
 
 assert(printname('John', 'Doe', { suffix:'Ph.D.' }), "John Doe Ph.D.", "Complex example 1");
 assert(printname('Max', 'Fightmaster', { prefix: 'Staff Sgt.' }), "Staff Sgt. Max Fightmaster", "Complex example 2");
 assert(printname('Isaac', 'Newton', { prefix: 'Sir', suffix: 'PRS MP'}), "Sir Isaac Newton PRS MP", "Complex example 3");
 
-var syntaxTest = function/* I'm breaking you baby (arg1, arg2, arg3)  */( /* a comment here */ arg1,
+var syntaxTest = kwargs(function/* I'm breaking you baby (arg1, arg2, arg3)  */( /* a comment here */ arg1,
     // A comment here too
     arg2,
 /* line comment */
@@ -130,14 +130,14 @@ arg3,
     /* nope jk */
     ){
     return [arg1, arg2, arg3, arg4, arg5].join('');
-}.kwargs();
+});
 
 assert(syntaxTest(1,2,3,4,5), '12345', 'Check the syntax');
 
 function testRegular/* I'm breaking you baby function(arg1, arg2, arg3)  */(name, lastname, middlename){
     return name + (middlename? (" " + middlename) : "") + (lastname? (" " + lastname) : "");
 }
-var testRegularKwargs = testRegular.kwargs({lastname: 'Doe'});
+var testRegularKwargs = kwargs(testRegular, {lastname: 'Doe'});
 
 assert(testRegularKwargs('John'), "John Doe", 'Regular test 1');
 assert(testRegularKwargs('Jack', 'White'), "Jack White", 'Regular test 2');
@@ -157,9 +157,9 @@ if(showComplete()){
     }, iteration, [1,2,3], this);
 
     console.log("%c Test kwargs version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
-    bench(function(arg1, arg2, arg3){
+    bench(kwargs(function(arg1, arg2, arg3){
         return arg1 + arg2 + arg3;
-    }.kwargs(), iteration, [1,2, {arg3: 3}], this);
+    }), iteration, [1,2, {arg3: 3}], this);
 }
 
 

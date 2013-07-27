@@ -119,3 +119,6 @@ myFunc({
   arg1: anObject
 });
 ```
+
+## LICENSE
+MIT License

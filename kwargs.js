@@ -24,7 +24,7 @@
     Function.prototype.kwargs = function (defaults) {
 
         var func = this;
-        var removeComments = new RegExp('(\\/\\*[\\w\\\'\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
+        var removeComments = new RegExp('(\\/\\*[\\w\\\'\\,\\(\\)\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
         var removeWhitespc = new RegExp('\\s+', 'gim');
         var matchSignature = new RegExp('function.*?\\((.*?)\\)', 'i');
         // get the argument names from function source

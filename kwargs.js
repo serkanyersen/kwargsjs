@@ -21,8 +21,7 @@
 (function(){
     'use strict';
 
-    Function.prototype.kwargs = function (defaults) {
-
+    function kwargs(defaults) {
         var func = this;
         var removeComments = new RegExp('(\\/\\*[\\w\\\'\\,\\(\\)\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
         var removeWhitespc = new RegExp('\\s+', 'gim');
@@ -63,5 +62,28 @@
 
             return func.apply(this, args);
         };
+    }
+    // As function prototype
+    Function.prototype.kwargs = kwargs;
+    
+    // as a seperate function for module loaders
+    var out = function(){
+        var args = Array.prototype.slice.call(arguments, 0);
+        var org = args.shift();
+        return kwargs.apply(org, args);
     };
-})();
+    
+    // CommonJS module is defined
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports){
+            module.exports = out;
+        }
+        exports.kwargs = out;
+    }else
+        // Register as a named module with AMD.
+        if (typeof define === 'function' && define.amd){
+            define('kwargs', [], function(){ return out; });
+        }else{
+            this.kwargs = out;
+        }
+}).call(this);

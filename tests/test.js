@@ -1,12 +1,22 @@
+var win;
+try{
+    var kwargs = require('../kwargs.js');
+    win = global;
+}catch(e){
+    win = window;
+}
+
 (function(exports){
     var success = 0;
     var fail = 0;
     exports.showComplete = function(){
+        console.log('-------------------------------------');
         if(fail === 0){
-            console.log('%c %s tests completed, all successful ', 'background:green;color:white;font-size:16px;font-weight:bold;', success);
+            console.info('%s tests completed, all successful ', success);
         }else{
-            console.log('%c %s tests completed, %s failed ', 'background:red;color:white;font-size:16px;font-weight:bold;', success, fail);
+            console.error('%s tests completed, %s failed ', success, fail);
         }
+        console.log('\n');
         return fail === 0;
     };
 
@@ -29,8 +39,8 @@
      * @param {T} context the context to call the method in.
      * @return {number} the time it took, in milliseconds to execute.
      */
-    exports.bench = function (method, iterations, args, context) {
-
+    exports.bench = function (name, method, iterations, args, context) {
+        console.info('\n---- Benchmark [ %s ] ----', name);
         var time = 0;
         var timer = function (action) {
             var d = Date.now();
@@ -65,7 +75,7 @@
         return execTime;
     };
 
-})(this);
+})(win);
 
 
 
@@ -150,16 +160,11 @@ assert(testRegularKwargs('Arthur', {
 if(showComplete()){
     /* Make a performance test */
     var iteration = 100000;
-
-    console.log("%c Test normal version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
-    bench(function(arg1, arg2, arg3){
+    bench('Normal function', function(arg1, arg2, arg3){
         return arg1 + arg2 + arg3;
     }, iteration, [1,2,3], this);
 
-    console.log("%c Test kwargs version %s iterations ", 'background:lightblue; font-size: 14px', iteration);
-    bench(function(arg1, arg2, arg3){
+    bench('kwargs wrapped function', function(arg1, arg2, arg3){
         return arg1 + arg2 + arg3;
     }.kwargs(), iteration, [1,2, {arg3: 3}], this);
 }
-
-

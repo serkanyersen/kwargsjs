@@ -4,6 +4,8 @@ This little tool gives you the ability to use keyword arguments support for your
 
 Another feature is to have the ability to set default values for your function arguments without changing or adding any code to your function.
 
+[![Build Status](https://travis-ci.org/serkanyersen/kwargsjs.png?branch=master)](https://travis-ci.org/serkanyersen/kwargsjs)
+
 ## Usage
 Just include the script on your site. That's it. When included it will add a new method called `kwargs` to Function prototype and you can use it like this:
 

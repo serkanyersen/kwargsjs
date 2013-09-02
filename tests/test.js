@@ -15,6 +15,7 @@ try{
             console.info('%s tests completed, all successful ', success);
         }else{
             console.error('%s tests completed, %s failed ', success, fail);
+            throw "Failed";
         }
         console.log('\n');
         return fail === 0;

@@ -11,7 +11,23 @@ Just include the script on your site. That's it. When included it will add a new
 
 ```javascript
 var functionName = function(arg1, arg2){
-	// code
+    // code
+}.kwargs([defaults]);
+```
+### With node.js
+You can install it with npm
+```bash
+npm install kwargsjs
+```
+and include it on your scripts
+```javascript
+var kwargs = require('kwargsjs');
+var functionName = kwargs(function(arg1, arg2){
+    // code
+}, [defaults]);
+// or using function prototype
+var functionName = function(arg1, arg2){
+    // code
 }.kwargs([defaults]);
 ```
 

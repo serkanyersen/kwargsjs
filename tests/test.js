@@ -239,9 +239,6 @@ assert(testRegularKwargs('Arthur', {
     middlename: 'C.'
 }), "Arthur C. Clark", 'Regular test 4');
 
-
-
-
 if(showComplete()){
     /* Make a performance test */
     var iteration = 100000;
@@ -252,7 +249,7 @@ if(showComplete()){
     bench('kwargs as function prototype', function(arg1, arg2, arg3){
         return arg1 + arg2 + arg3;
     }.kwargs(), iteration, [1,2, {arg3: 3}], this);
-    
+
     bench('kwargs wrapped function', kwargs(function(arg1, arg2, arg3){
         return arg1 + arg2 + arg3;
     }), iteration, [1,2, {arg3: 3}], this);

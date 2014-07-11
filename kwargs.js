@@ -65,14 +65,14 @@
     }
     // As function prototype
     Function.prototype.kwargs = kwargs;
-    
+
     // as a seperate function for module loaders
     var out = function(){
         var args = Array.prototype.slice.call(arguments, 0);
         var org = args.shift();
         return kwargs.apply(org, args);
     };
-    
+
     // CommonJS module is defined
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports){
